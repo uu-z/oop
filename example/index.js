@@ -2,9 +2,7 @@ import { _class } from "../src";
 
 let test = _class({
   static: {
-    staicMethod() {
-      console.log(this);
-    }
+    add: (...args) => args.reduce((p, c) => p + c)
   },
   construct(arg1) {
     this.publicA = arg1;
@@ -18,5 +16,5 @@ let test = _class({
   }
 });
 
-test.staicMethod();
+console.log(test.add(1, 2));
 console.log(new test(100));

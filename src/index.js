@@ -12,7 +12,7 @@ export const _class = cp => {
   let publicVariable = "";
   let privateReturn = "";
   let publicReturn = "";
-  let constructExec = `let _construct = ${_construct};`;
+  let constructExec = `let _construct = ${_construct}; _construct(args)`;
   $(_private, (key, val) => (privateVariable += `let _${key} = ${val};`));
   $(_private, (key, val) => (publicReturn += `_${key},`));
 
@@ -24,19 +24,11 @@ export const _class = cp => {
         ${publicVariable}
         ${constructExec}
           return {
-            _construct,
             ${privateReturn}           
             ${publicReturn}
           }
         `;
-  let fn = new Function(fnBody);
+  let fn = new Function("args", fnBody);
   $(_static, (key, val) => (fn[key] = val));
-  return new Proxy(fn, {
-    construct(target, args) {
-      let instance = target();
-      instance._construct(...args);
-      delete instance._construct;
-      return instance;
-    }
-  });
+  return fn;
 };
