@@ -5,16 +5,20 @@ let test = _class({
     add: (...args) => args.reduce((p, c) => p + c)
   },
   construct(arg1) {
-    this.publicA = arg1;
+    this.privateA = arg1;
+    this.publicA = this.privateA;
   },
   private: {
     privateA: 1
   },
   public: {
     publicA: 1,
-    haha: () => 1
+    haha() {
+      console.log(this);
+    }
   }
 });
 
 console.log(test.add(1, 2));
-console.log(new test(100));
+let instance = new test(100);
+instance.haha();
