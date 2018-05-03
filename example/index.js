@@ -2,10 +2,8 @@ import { _class } from "../src";
 
 let a = _class({
   name: "a",
-  public: {
-    a: 1,
-    b() {}
-  }
+  a: 1,
+  b: () => 2
 });
 
 let test = _class({
@@ -15,17 +13,11 @@ let test = _class({
     add: (...args) => args.reduce((p, c) => p + c)
   },
   construct(arg1) {
-    this.privateA = arg1;
-    this.publicA = this.privateA;
+    this.A = arg1;
   },
-  private: {
-    privateA: 1
-  },
-  public: {
-    publicA: 1,
-    haha() {
-      console.log(this);
-    }
+  A: 1,
+  haha() {
+    console.log(this);
   }
 });
 

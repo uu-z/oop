@@ -5,10 +5,9 @@ export const _class = cp => {
     name: _name = "anonymous",
     extend: _extend,
     interfaces: _interfaces,
-    private: _private,
     static: _static,
     construct: _construct,
-    public: _public
+    ..._public
   } = cp;
 
   let fn;
@@ -29,15 +28,6 @@ export const _class = cp => {
           }
         });
       }
-
-      _private &&
-        $(_private, (key, val) => {
-          if (typeof val === "function") {
-            instance[key] = val.bind(instance);
-          } else {
-            instance[key] = val;
-          }
-        });
       _public &&
         $(_public, (key, val) => {
           if (typeof val === "function") {
