@@ -1,6 +1,16 @@
 import { _class } from "../src";
 
+let a = _class({
+  name: "a",
+  public: {
+    a: 1,
+    b() {}
+  }
+});
+
 let test = _class({
+  extend: a,
+  name: "test",
   static: {
     add: (...args) => args.reduce((p, c) => p + c)
   },
